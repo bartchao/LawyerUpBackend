@@ -15,7 +15,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDatabaseServices(builder.Configuration);
 
 builder.Services.AddApplication(builder.Configuration); //Extension Method in Application Library
-
+builder.Services.AddCors(options =>
+    options.AddPolicy("CorsPolicy", policy =>
+     {
+         policy.AllowAnyHeader();
+         policy.AllowAnyMethod();
+         policy.AllowAnyOrigin();
+         policy.AllowCredentials();
+     }));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,7 +35,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors("CorsPolicy");
 app.MapControllers();
 
 app.Run();
