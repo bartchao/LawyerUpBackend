@@ -9,6 +9,7 @@ namespace LawyerUpBackend.Application.Services
 {
     public interface ICaseService
     {
-        Task<CaseListResponseModel> SearchCaseList(string query);
+        Task<CaseListResponseModel> SearchCaseListAsync(string query);
+        Task<CaseResponseModel> GetByIdAsync(int id);
     }
 }

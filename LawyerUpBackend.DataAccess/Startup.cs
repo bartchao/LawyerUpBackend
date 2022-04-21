@@ -28,6 +28,7 @@ namespace LawyerUpBackend.DataAccess
         private static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<ILawyerRepostiory, LawyerRepository>();
+            services.AddScoped<ICaseRepository, CaseRepository>();
         }
 
     }

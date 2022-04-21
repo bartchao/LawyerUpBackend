@@ -10,6 +10,6 @@ namespace LawyerUpBackend.Core.Common
     public abstract class BaseEntity
     {
         [Column("id")]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

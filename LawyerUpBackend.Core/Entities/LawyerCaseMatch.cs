@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LawyerUpBackend.Core.Models
+namespace LawyerUpBackend.Core.Entities
 {
     public partial class LawyerCaseMatch
     {

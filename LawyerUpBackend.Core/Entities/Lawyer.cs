@@ -10,6 +10,11 @@ namespace LawyerUpBackend.Core.Entities
 {
     public class Lawyer : BaseEntity
     {
+        public Lawyer()
+        {
+            LawyerCaseMatches = new HashSet<LawyerCaseMatch>();
+        }
+        public Guid? UniqueId { get; set; }
         [Column("lawyer_name")]
         public string? Name { get; set; }
         [Column("now_lic_no")]
@@ -28,5 +33,7 @@ namespace LawyerUpBackend.Core.Entities
         public string? Tel { get; set; }
         [Column("addr")]
         public string? Address { get; set; }
+        public virtual ICollection<LawyerCaseMatch> LawyerCaseMatches { get; set; }
+
     }
 }
