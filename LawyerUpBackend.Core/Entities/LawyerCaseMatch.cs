@@ -1,11 +1,11 @@
-﻿using System;
+﻿using LawyerUpBackend.Core.Common;
+using System;
 using System.Collections.Generic;
 
 namespace LawyerUpBackend.Core.Entities
 {
-    public partial class LawyerCaseMatch
+    public partial class LawyerCaseMatch :BaseEntity
     {
-        public int Id { get; set; }
         public int CaseId { get; set; }
         public int? LawyerId { get; set; }
 

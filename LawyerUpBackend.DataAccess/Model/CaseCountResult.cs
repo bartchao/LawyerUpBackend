@@ -1,13 +1,14 @@
 ﻿using LawyerUpBackend.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LawyerUpBackend.Application.Models.Case
+namespace LawyerUpBackend.DataAccess.Model
 {
-    public class CaseListResponseModel
+    public class CaseCountResult
     {
         public int Id { get; set; }
         public string? Type { get; set; }
@@ -15,13 +16,12 @@ namespace LawyerUpBackend.Application.Models.Case
         public string? Word { get; set; }
         public int? Number { get; set; }
         public string? Classification { get; set; }
+        [Column("main_content")]
         public string? MainContent { get; set; }
+        [Column("judge_date")]
+
         public DateTime? JudgeDate { get; set; }
-        public ICollection<Lawyer>? Lawyers { get; set; }
-        public class Lawyer
-        {
-            public string Name { get; set; }
-            public Uri Url { get; set; }
-        }
+
+        public int Result { get; set; }
     }
 }

@@ -24,6 +24,6 @@ namespace LawyerUpBackend.Core.Entities
         public string? DetailUrl { get; set; }
         public DateTime? JudgeDate { get; set; }
 
-        public virtual ICollection<LawyerCaseMatch> LawyerCaseMatches { get; set; }
+        public ICollection<LawyerCaseMatch> LawyerCaseMatches { get; set; }
     }
 }

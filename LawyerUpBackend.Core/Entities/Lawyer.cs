@@ -14,6 +14,7 @@ namespace LawyerUpBackend.Core.Entities
         {
             LawyerCaseMatches = new HashSet<LawyerCaseMatch>();
         }
+        [Column("unique_id")]
         public Guid? UniqueId { get; set; }
         [Column("lawyer_name")]
         public string? Name { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LawyerUpBackend.Application.Models.Case;
 using LawyerUpBackend.Core.Entities;
+using LawyerUpBackend.DataAccess.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace LawyerUpBackend.Application.Profiles
         public CaseProfile()
         {
             CreateMap<Case, CaseResponseModel>();
-             
+            CreateMap<CaseCountResult, CaseListResponseModel>();
             //CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id, option => option.MapFrom(source => source.Id));
         }
        

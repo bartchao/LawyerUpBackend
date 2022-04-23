@@ -1,4 +1,5 @@
 ﻿using LawyerUpBackend.Core.Entities;
+using LawyerUpBackend.DataAccess.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace LawyerUpBackend.DataAccess
         public virtual DbSet<Case> Cases { get; set; } = null!;
         public virtual DbSet<Lawyer> Lawyers { get; set; } = null!;
         public virtual DbSet<LawyerCaseMatch> LawyerCaseMatches { get; set; } = null!;
+
+        public virtual DbSet<CaseCountResult> CaseCountResults { get; set; } = null!;
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,6 +35,7 @@ namespace LawyerUpBackend.DataAccess
         {
             modelBuilder.Entity<Case>(entity =>
             {
+                entity.Navigation(n => n.LawyerCaseMatches).AutoInclude();
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.BeforeMain).HasColumnName("before_main");
@@ -67,6 +71,7 @@ namespace LawyerUpBackend.DataAccess
                     .HasColumnName("word");
 
                 entity.Property(e => e.Year).HasColumnName("year");
+                
             });
 
             modelBuilder.Entity<Lawyer>(entity =>
@@ -113,6 +118,7 @@ namespace LawyerUpBackend.DataAccess
 
             modelBuilder.Entity<LawyerCaseMatch>(entity =>
             {
+                entity.Navigation(n => n.Lawyer).AutoInclude();
                 entity.ToTable("Lawyer_Case_match");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -132,7 +138,7 @@ namespace LawyerUpBackend.DataAccess
                     .HasForeignKey(d => d.LawyerId)
                     .HasConstraintName("FK__Lawyer_Ca__lawye__3E52440B");
             });
-
+            modelBuilder.Entity<CaseCountResult>().HasNoKey();
             
 
             OnModelCreatingPartial(modelBuilder);
