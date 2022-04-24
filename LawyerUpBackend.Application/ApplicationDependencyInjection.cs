@@ -22,6 +22,8 @@ public static class ApplicationDependencyInjection
     {
         //services.AddScoped<IPredictionModelService, PredictionModelService>();
         services.AddScoped<ILawyerService, LawyerService>();
+        services.AddScoped<ICaseService, CaseService>();
+
     }
 
     public static void AddPythonServices(this IServiceCollection services,IConfiguration configuration)

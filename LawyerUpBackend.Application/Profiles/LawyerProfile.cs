@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LawyerUpBackend.Application.Models.Case;
 using LawyerUpBackend.Application.Models.Lawyer;
 using LawyerUpBackend.Core.Entities;
 using System;
@@ -16,7 +17,15 @@ namespace LawyerUpBackend.Application.Profiles
             CreateMap<Lawyer, LawyerResponseModel>()
                 .ForMember(target => target.Age, option => option.MapFrom(source => source.Birthyear))
                 .AfterMap((src,dest)=> dest.Age = DateTime.Now.Year-1911-dest.Age);
-            CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id,option => option.MapFrom(source =>source.Id));
+            CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id,option => option.MapFrom(source =>source.UniqueId));
+            CreateMap<LawyerCaseMatch, CaseListResponseModel.Lawyer>().ForMember(target => target.Name, option => option.MapFrom(source => source.Lawyer.Name)).ForMember(target => target.Id,option=>option.MapFrom(source =>source.Lawyer.UniqueId));
+        }
+    }
+    public class LawyerCaseMatchProfile : Profile
+    {
+        public LawyerCaseMatchProfile()
+        {
+            //CreateMap<Lawyer, CaseListResponseModel.Lawyer>().ForMember(target => target.Name, option => option.MapFrom(source => source.Lawyer.Name));
         }
     }
 }

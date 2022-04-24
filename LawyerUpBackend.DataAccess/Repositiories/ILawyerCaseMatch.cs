@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace LawyerUpBackend.DataAccess.Repositiories
 {
-    public interface ICaseRepository : IBaseRepository<Case>
+    public interface ILawyerCaseMatchRepository:IBaseRepository<LawyerCaseMatch>
     {
-        IQueryable<Case> GetAll(string query);
     }
-
 }

@@ -17,14 +17,19 @@ namespace LawyerUpBackend.API.Controllers
 
         }
         // GET api/<SearchController>/5
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetAsync([FromBody] CaseSearchQueryModel query)
         {
-            var searchResult = await caseService.SearchCaseList(query.SearchQuery);
+            var searchResult = await caseService.SearchCaseListAsync(query);
             return Ok(searchResult);
         }
 
-
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var searchResult = await caseService.GetByIdAsync(id);
+            return Ok(searchResult);
+        }
 
     }
 }

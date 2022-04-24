@@ -30,7 +30,6 @@ namespace LawyerUpBackend.Application.Services.Impl
             {
                 var predictionResult = new PredictionModelResult()
                 {
-                    Success = true,
                     First = result[0],
                     Second  = result[1],
                     Third = result[2]

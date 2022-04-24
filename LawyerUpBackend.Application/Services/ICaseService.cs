@@ -1,4 +1,5 @@
-﻿using LawyerUpBackend.Application.Models.Case;
+﻿using LawyerUpBackend.Application.Dtos;
+using LawyerUpBackend.Application.Models.Case;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace LawyerUpBackend.Application.Services
 {
     public interface ICaseService
     {
-        Task<CaseListResponseModel> SearchCaseList(string query);
+        Task<PagedResultDto<CaseListResponseModel>> SearchCaseListAsync(CaseSearchQueryModel input);
+        Task<CaseResponseModel> GetByIdAsync(int id);
     }
 }

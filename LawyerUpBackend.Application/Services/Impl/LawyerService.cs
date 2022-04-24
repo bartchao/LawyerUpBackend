@@ -34,7 +34,7 @@ namespace LawyerUpBackend.Application.Services.Impl
 
         public async Task<LawyerResponseModel> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var lawyer = await _repository.GetFirstAsync(lawyer => lawyer.Id == id);
+            var lawyer = await _repository.GetFirstAsync(lawyer => lawyer.UniqueId == id);
             return _mapper.Map<LawyerResponseModel>(lawyer);
         }
 
@@ -64,7 +64,6 @@ namespace LawyerUpBackend.Application.Services.Impl
                 TotalCount = count,
                 MaxResultCount = input.MaxResultCount,
                 Data = _mapper.Map<List<LawyerListResponseModel>>(result),
-                FilterText = input.FilterText,
                 Sort = input.Sort,
             };
             return returnValue;

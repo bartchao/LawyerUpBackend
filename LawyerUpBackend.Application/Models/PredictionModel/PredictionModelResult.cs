@@ -8,7 +8,6 @@ namespace LawyerUpBackend.Application.Models.PredictionModel
 {
     public class PredictionModelResult
     {
-        public bool Success { get; set; }
         public string First { get; set; }
         public string Second { get; set; }
         public string Third { get; set; }
