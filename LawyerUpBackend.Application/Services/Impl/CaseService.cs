@@ -17,20 +17,22 @@ namespace LawyerUpBackend.Application.Services.Impl
     {
         private readonly ICaseRepository repository;
         private readonly IMapper mapper;
-        private readonly ICaseCountRepository countRepository;
         private readonly ILawyerCaseMatchRepository lawyerCaseMatchRepository;
 
-        public CaseService(ICaseRepository _repository,IMapper _mapper,ICaseCountRepository _countRepository, ILawyerCaseMatchRepository _lawyerCaseMatchRepository)
+        public CaseService(ICaseRepository _repository,IMapper _mapper, ILawyerCaseMatchRepository _lawyerCaseMatchRepository)
         {
             this.repository = _repository;
             this.mapper = _mapper;
-            countRepository = _countRepository;
             lawyerCaseMatchRepository = _lawyerCaseMatchRepository;
 
         }
         public async Task<PagedResultDto<CaseListResponseModel>> SearchCaseListAsync(CaseSearchQueryModel input)
         {
             var query = repository.GetAll(input.SearchQuery);
+            if (input.Classification != null)
+            {
+                query = query.Where(classification => classification.Classification == input.Classification);
+            }
             var count = query.Count();
             if (count == 0) throw new SearchNotFoundException();
             query = query.Skip((input.CurrentPage - 1) * input.MaxResultCount).Take(input.MaxResultCount);
@@ -43,7 +45,6 @@ namespace LawyerUpBackend.Application.Services.Impl
                 {
                     item.Lawyers = mapper.Map<List<CaseListResponseModel.Lawyer>>(lawyers);
                 }
-
             }
             var returnValue = new PagedResultDto<CaseListResponseModel>()
             {
@@ -51,7 +52,6 @@ namespace LawyerUpBackend.Application.Services.Impl
                 TotalCount = count,
                 MaxResultCount = input.MaxResultCount,
                 Data = data,
-                FilterText = input.FilterText,
                 Sort = input.Sort,
             };
             return returnValue;

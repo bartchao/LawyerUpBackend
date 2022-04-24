@@ -29,7 +29,6 @@ namespace LawyerUpBackend.DataAccess
         {
             services.AddScoped<ILawyerRepostiory, LawyerRepository>();
             services.AddScoped<ICaseRepository, CaseRepository>();
-            services.AddScoped<ICaseCountRepository, CaseCountRepository>();
             services.AddScoped<ILawyerCaseMatchRepository, LawyerCaseMatchRepository>();
         }
 

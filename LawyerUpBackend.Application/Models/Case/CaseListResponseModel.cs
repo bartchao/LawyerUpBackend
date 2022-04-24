@@ -21,7 +21,7 @@ namespace LawyerUpBackend.Application.Models.Case
         public class Lawyer
         {
             public string Name { get; set; }
-            public Uri Url { get; set; }
+            public Guid Id { get; set; }
         }
     }
 }

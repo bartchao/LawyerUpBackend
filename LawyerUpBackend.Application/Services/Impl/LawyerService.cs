@@ -64,7 +64,6 @@ namespace LawyerUpBackend.Application.Services.Impl
                 TotalCount = count,
                 MaxResultCount = input.MaxResultCount,
                 Data = _mapper.Map<List<LawyerListResponseModel>>(result),
-                FilterText = input.FilterText,
                 Sort = input.Sort,
             };
             return returnValue;

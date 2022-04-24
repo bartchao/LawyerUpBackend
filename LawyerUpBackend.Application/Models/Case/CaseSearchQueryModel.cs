@@ -10,6 +10,6 @@ namespace LawyerUpBackend.Application.Models.Case
     public class CaseSearchQueryModel: PagedSortedAndFilterInput
     {
         public string SearchQuery { get; set; }
-
+        public string? Classification { get; set; }
     }
 }

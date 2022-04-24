@@ -35,6 +35,5 @@ namespace LawyerUpBackend.Application.Dtos
             }
         }
         public string? Sort{ get; set; }
-        public string? FilterText { get; set; }
     }
 }

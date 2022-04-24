@@ -22,20 +22,5 @@ namespace LawyerUpBackend.DataAccess.Repositiories.Impl
             return result;
         }
     }
-    public class CaseCountRepository : ICaseCountRepository
-    {
-        private readonly AppDbContext Context;
-
-        public CaseCountRepository(AppDbContext context)
-        {
-            Context = context;
-        }
-
-        IQueryable<CaseCountResult> ICaseCountRepository.GetAll(string query)
-        {
-            throw new NotImplementedException();
-            //var result = Context.Cases.FromSqlInterpolated($"select top(100) percent * from Cases where TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content,{query}, SPACE(LEN({query})-1)))) > 0 order by TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content, {query}, SPACE(LEN({query})-1)))) desc");
-            //return result;
-        }
-    }
+    
 }
