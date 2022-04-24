@@ -13,8 +13,8 @@ namespace LawyerUpBackend.Application.Dtos
         public List<TEntity> Data { get; set; }
 
         public bool HasPrevious => CurrentPage > 1;
-        public bool HasNext => CurrentPage < TotalCount;
+        public bool HasNext => CurrentPage < PageCount;
         public bool IsFirst => CurrentPage ==1;
-        public bool IsLast => CurrentPage == TotalCount;
+        public bool IsLast => CurrentPage == PageCount;
     }
 }

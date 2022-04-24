@@ -17,7 +17,7 @@ namespace LawyerUpBackend.Application.Profiles
             CreateMap<Lawyer, LawyerResponseModel>()
                 .ForMember(target => target.Age, option => option.MapFrom(source => source.Birthyear))
                 .AfterMap((src,dest)=> dest.Age = DateTime.Now.Year-1911-dest.Age);
-            CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id,option => option.MapFrom(source =>source.Id));
+            CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id,option => option.MapFrom(source =>source.UniqueId));
             CreateMap<LawyerCaseMatch, CaseListResponseModel.Lawyer>().ForMember(target => target.Name, option => option.MapFrom(source => source.Lawyer.Name));
         }
     }

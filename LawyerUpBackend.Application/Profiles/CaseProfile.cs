@@ -15,7 +15,7 @@ namespace LawyerUpBackend.Application.Profiles
         public CaseProfile()
         {
             CreateMap<Case, CaseResponseModel>();
-            CreateMap<CaseCountResult, CaseListResponseModel>();
+            CreateMap<Case, CaseListResponseModel>();
             //CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id, option => option.MapFrom(source => source.Id));
         }
        

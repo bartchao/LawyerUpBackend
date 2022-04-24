@@ -30,11 +30,11 @@ namespace LawyerUpBackend.Application.Services.Impl
         }
         public async Task<PagedResultDto<CaseListResponseModel>> SearchCaseListAsync(CaseSearchQueryModel input)
         {
-            var query = countRepository.GetAll(input.SearchQuery);
-            //query = query.Skip((input.CurrentPage - 1) * input.MaxResultCount).Take(input.MaxResultCount);
+            var query = repository.GetAll(input.SearchQuery);
+            var count = query.Count();
+            if (count == 0) throw new SearchNotFoundException();
+            query = query.Skip((input.CurrentPage - 1) * input.MaxResultCount).Take(input.MaxResultCount);
             var result = await query.AsNoTracking().ToListAsync();
-            var count = result.Count();
-            if (count == 0)  throw new SearchNotFoundException();
             var data = mapper.Map<List<CaseListResponseModel>>(result);
             foreach(var item in data)
             {

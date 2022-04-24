@@ -16,7 +16,11 @@ namespace LawyerUpBackend.DataAccess.Repositiories.Impl
         {
         }
 
-        
+        IQueryable<Case> ICaseRepository.GetAll(string query)
+        {
+            var result = Context.Cases.FromSqlInterpolated($"select top(100) percent * from Cases where TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content,{query}, SPACE(LEN({query})-1)))) > 0 order by TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content, {query}, SPACE(LEN({query})-1)))) desc");
+            return result;
+        }
     }
     public class CaseCountRepository : ICaseCountRepository
     {
@@ -29,8 +33,9 @@ namespace LawyerUpBackend.DataAccess.Repositiories.Impl
 
         IQueryable<CaseCountResult> ICaseCountRepository.GetAll(string query)
         {
-            var result = Context.CaseCountResults.FromSqlInterpolated($"select id,type,year,word,number,classification,main_content,judge_date,Result from (SELECT id,type,year,word,number,classification,main_content,judge_date, TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content,{query}, SPACE(LEN({query})-1)))) as Result FROM Cases) p where Result > 0 order by Result desc");
-            return result;
+            throw new NotImplementedException();
+            //var result = Context.Cases.FromSqlInterpolated($"select top(100) percent * from Cases where TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content,{query}, SPACE(LEN({query})-1)))) > 0 order by TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content, {query}, SPACE(LEN({query})-1)))) desc");
+            //return result;
         }
     }
 }

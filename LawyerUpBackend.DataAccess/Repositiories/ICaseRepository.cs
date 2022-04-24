@@ -9,5 +9,7 @@ namespace LawyerUpBackend.DataAccess.Repositiories
 {
     public interface ICaseRepository : IBaseRepository<Case>
     {
+        IQueryable<Case> GetAll(string query);
     }
+
 }
