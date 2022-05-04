@@ -1,4 +1,5 @@
-﻿using LawyerUpBackend.Application.Models.Case;
+﻿using LawyerUpBackend.Application.Exceptions;
+using LawyerUpBackend.Application.Models.Case;
 using LawyerUpBackend.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +21,15 @@ namespace LawyerUpBackend.API.Controllers
         [HttpPost]
         public async Task<IActionResult> GetAsync([FromBody] CaseSearchQueryModel query)
         {
-            var searchResult = await caseService.SearchCaseListAsync(query);
-            return Ok(searchResult);
+            try
+            {
+                var searchResult = await caseService.SearchCaseListAsync(query);
+                return Ok(searchResult);
+            }
+            catch (SearchNotFoundException e)
+            {
+                return NoContent();
+            }
         }
 
         [HttpGet("{id}")]

@@ -17,7 +17,7 @@ namespace LawyerUpBackend.Core.Entities
         [Column("unique_id")]
         public Guid? UniqueId { get; set; }
         [Column("lawyer_name")]
-        public string? Name { get; set; }
+        public string Name { get; set; }
         [Column("now_lic_no")]
         public string? Now_lic_no { get; set; }
         [Column("sex")]

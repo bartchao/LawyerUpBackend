@@ -3,6 +3,7 @@ using LawyerUpBackend.Application.Dtos;
 using LawyerUpBackend.Application.Exceptions;
 using LawyerUpBackend.Application.Models.Case;
 using LawyerUpBackend.Application.Models.Lawyer;
+using LawyerUpBackend.Core.Entities;
 using LawyerUpBackend.DataAccess.Repositiories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,28 +29,38 @@ namespace LawyerUpBackend.Application.Services.Impl
         }
         public async Task<PagedResultDto<CaseListResponseModel>> SearchCaseListAsync(CaseSearchQueryModel input)
         {
-            var query = repository.GetAll(input.SearchQuery);
+            List<Case> query;
             if (input.Classification != null)
             {
-                query = query.Where(classification => classification.Classification == input.Classification);
+                query = repository.GetAllWithClassification(input.SearchQuery, input.Classification);
             }
-            var count = query.Count();
-            if (count == 0) throw new SearchNotFoundException();
-            query = query.Skip((input.CurrentPage - 1) * input.MaxResultCount).Take(input.MaxResultCount);
-            var result = await query.AsNoTracking().ToListAsync();
-            var data = mapper.Map<List<CaseListResponseModel>>(result);
-            foreach(var item in data)
+            else
+            {
+                query = repository.GetAll(input.SearchQuery);
+
+            }
+            if(query.Count == 0)
+            {
+                throw new SearchNotFoundException();
+            }
+            //var count = query.Count();
+            //if (count == 0) throw new SearchNotFoundException();
+            //query = query.Skip((input.CurrentPage - 1) * input.MaxResultCount).Take(input.MaxResultCount) ;
+            //var result = await query.AsNoTracking().ToListAsync();
+            var data = mapper.Map<List<CaseListResponseModel>>(query);
+            foreach (var item in data)
             {
                 var lawyers = await lawyerCaseMatchRepository.GetAllAsync(@case => @case.CaseId == item.Id);
-                if(lawyers.Count() > 0)
+                if (lawyers.Count() > 0)
                 {
                     item.Lawyers = mapper.Map<List<CaseListResponseModel.Lawyer>>(lawyers);
                 }
             }
+            data = data.OrderByDescending(x => x.Lawyers?.Count).ToList();
             var returnValue = new PagedResultDto<CaseListResponseModel>()
             {
                 CurrentPage = input.CurrentPage,
-                TotalCount = count,
+                TotalCount = data.Count,
                 MaxResultCount = input.MaxResultCount,
                 Data = data,
                 Sort = input.Sort,

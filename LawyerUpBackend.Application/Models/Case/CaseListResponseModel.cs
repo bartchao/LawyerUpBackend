@@ -16,7 +16,7 @@ namespace LawyerUpBackend.Application.Models.Case
         public int? Number { get; set; }
         public string? Classification { get; set; }
         public string? MainContent { get; set; }
-        public DateTime? JudgeDate { get; set; }
+        public string? JudgeDate { get; set; }
         public ICollection<Lawyer>? Lawyers { get; set; }
         public class Lawyer
         {

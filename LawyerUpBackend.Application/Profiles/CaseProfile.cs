@@ -15,7 +15,7 @@ namespace LawyerUpBackend.Application.Profiles
         public CaseProfile()
         {
             CreateMap<Case, CaseResponseModel>();
-            CreateMap<Case, CaseListResponseModel>();
+            CreateMap<Case, CaseListResponseModel>().ForMember(target => target.JudgeDate, option => option.MapFrom(source => source.JudgeDate.Value.ToShortDateString()));
             //CreateMap<Lawyer, LawyerListResponseModel>().ForMember(target => target.Id, option => option.MapFrom(source => source.Id));
         }
        
