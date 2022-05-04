@@ -39,10 +39,16 @@ namespace LawyerUpBackend.DataAccess.Repositiories.Impl
             return return_list;
 
         }
-        List<Case> ICaseRepository.GetAllWithClassification(string query,string classification)
+        List<Case> ICaseRepository.GetAllWithClassification(string query, string classification)
         {
             var result = Context.Cases.FromSqlInterpolated($"select top(100) percent * from Cases where TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content,{query}, SPACE(LEN({query})-1)))) > 0 order by TRY_CONVERT( INT ,LEN(main_content) - LEN(REPLACE(main_content, {query}, SPACE(LEN({query})-1)))) desc");
             result = result.Where(@case => @case.Classification == classification);
+            if (result.Count() == 0)
+            {
+                result = from @case in Context.Cases
+                         where @case.Classification.Contains(classification)
+                         select @case;
+            }
             List<Case> result_list = result.ToList();
             return result_list;
         }
