@@ -15,7 +15,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDatabaseServices(builder.Configuration);
 
 builder.Services.AddApplication(builder.Configuration); //Extension Method in Application Library
-builder.Services.AddCors(options =>
+builder.Services.AddCors(options =>  
     options.AddPolicy("CorsPolicy", policy =>
      {
          policy.AllowAnyHeader();
@@ -32,7 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.MapControllers();

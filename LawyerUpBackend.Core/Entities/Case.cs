@@ -11,7 +11,7 @@ namespace LawyerUpBackend.Core.Entities
             LawyerCaseMatches = new HashSet<LawyerCaseMatch>();
         }
 
-        public int Id { get; set; }
+
         public string? Type { get; set; }
         public int? Year { get; set; }
         public string? Word { get; set; }
