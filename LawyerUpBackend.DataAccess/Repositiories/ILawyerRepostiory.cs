@@ -9,6 +9,6 @@ namespace LawyerUpBackend.DataAccess.Repositiories
 {
     public interface ILawyerRepostiory : IBaseRepository<Lawyer>
     {
-        
+        Dictionary<string, int> GetAllGuild();
     }
 }

@@ -37,7 +37,20 @@ namespace LawyerUpBackend.Application.Services.Impl
             var lawyer = await _repository.GetFirstAsync(lawyer => lawyer.UniqueId == id);
             return _mapper.Map<LawyerResponseModel>(lawyer);
         }
-
+        public async Task<List<LawyerGuildCountResponseModel>> GetGuildCount()
+        {
+            var query = _repository.GetAllGuild();
+            List<LawyerGuildCountResponseModel> guildList = new List<LawyerGuildCountResponseModel>();
+            foreach(var guild in query)
+            {
+                guildList.Add(new LawyerGuildCountResponseModel()
+                {
+                    GuildName = guild.Key,
+                    GuildCount = guild.Value
+                });
+            }
+            return guildList;
+        }
         public async Task<PagedResultDto<LawyerListResponseModel>> GetListByQuery(LawyerListQueryModel input)
         {
             var query = _repository.GetAll();
@@ -49,6 +62,10 @@ namespace LawyerUpBackend.Application.Services.Impl
             {
                 string sex_zh = input.Sex == "male" ? "男" : "女";
                 query = query.Where(i => i.Sex.Contains(input.Sex));
+            }
+            if (string.IsNullOrEmpty(input.Guild) == false)
+            {
+                query = query.Where(g =>g.Guild_name.Contains(input.Guild));
             }
             var count = await query.CountAsync();
             if (count == 0)

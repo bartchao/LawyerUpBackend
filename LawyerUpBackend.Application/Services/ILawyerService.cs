@@ -14,6 +14,6 @@ namespace LawyerUpBackend.Application.Services
         Task<IEnumerable<LawyerListResponseModel>> GetAllAsync();
         Task<LawyerResponseModel> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<PagedResultDto<LawyerListResponseModel>> GetListByQuery(LawyerListQueryModel query);
-
+        Task<List<LawyerGuildCountResponseModel>> GetGuildCount();
     }
 }

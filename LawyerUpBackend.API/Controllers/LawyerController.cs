@@ -41,5 +41,10 @@ namespace LawyerUpBackend.API.Controllers
             }
 
         }
+        [HttpGet("Guild")]
+        public async  Task<IActionResult> GetAllGuild()
+        {
+            return Ok(await _lawyerService.GetGuildCount());
+        }
     }
 }
